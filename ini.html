@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Sana Bir Sorum Var!</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            transition: background 2s ease;
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 50px; color: #ff0055; }
+
+        .btn-container { display: flex; gap: 40px; }
+
+        button {
+            padding: 20px 50px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #yesBtn { background: #2ecc71; color: white; box-shadow: 0 0 30px rgba(46, 204, 113, 0.4); }
+        #noBtn { background: #e74c3c; color: white; cursor: not-allowed; opacity: 0.6; }
+
+        .hidden-msg {
+            display: none;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 0 0 15px rgba(255, 235, 59, 0.5);
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div id="quiz">
+        <h1>Beni seviyor musun?</h1>
+        <div class="btn-container">
+            <button id="yesBtn" onclick="startSurprise()">EVET</button>
+            <button id="noBtn" disabled>HAYIR</button>
+        </div>
+    </div>
+
+    <div id="final" style="display:none;">
+        <div id="msg1" class="hidden-msg">BİLİYORDUM! ❤️</div>
+        <div id="msg2" class="hidden-msg" style="margin-top:20px;">Senin gibi bir ablam olduğu için...</div>
+        <div id="msg3" class="hidden-msg" style="margin-top:20px; color:#ff0055;">DÜNYANIN EN ŞANSLI KARDEŞİYİM! ✨</div>
+    </div>
+
+    <script>
+        function startSurprise() {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('final').style.display = 'block';
+            document.body.style.background = '#1a000a';
+
+            // Mesajları sırayla göster
+            setTimeout(() => { document.getElementById('msg1').style.display = 'block'; }, 500);
+            setTimeout(() => { document.getElementById('msg2').style.display = 'block'; }, 2000);
+            setTimeout(() => { document.getElementById('msg3').style.display = 'block'; }, 3500);
+
+            // Kalp yağmuru
+            setInterval(createHeart, 200);
+        }
+
+        function createHeart() {
+            const h = document.createElement('div');
+            h.innerHTML = '❤️';
+            h.style.position = 'fixed';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.top = '-50px';
+            h.style.fontSize = Math.random() * 30 + 20 + 'px';
+            h.style.transition = 'transform 3s linear, opacity 3s';
+            document.body.appendChild(h);
+
+            setTimeout(() => {
+                h.style.transform = `translateY(110vh) rotate(${Math.random() * 360}deg)`;
+                h.style.opacity = '0';
+            }, 100);
+            setTimeout(() => h.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
